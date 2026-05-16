@@ -22,9 +22,9 @@
                 <VBox styleClass="ai-summary-card" spacing="5">
                     <Label text="AI Cross-Reference Confidence" styleClass="ai-card-title"/>
                     <HBox alignment="CENTER_LEFT" spacing="10">
-                        <ProgressBar progress="0.92" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="ai-progress"/>
-                        <Label text="92%" styleClass="ai-percentage"/>
-                    </HBox>
+    <ProgressBar fx:id="matchProgressBar" progress="0.0" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="ai-progress"/>
+    <Label fx:id="matchScoreLabel" text="0%" styleClass="ai-percentage"/>
+</HBox>
                     <Label text="Minor spelling variation detected in hospital name." styleClass="ai-card-subtitle"/>
                 </VBox>
                 
