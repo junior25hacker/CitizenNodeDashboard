@@ -7,54 +7,85 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.citizen.dashboard.DashboardController"
-            prefHeight="600.0" prefWidth="800.0"
+            prefHeight="600.0" prefWidth="900.0"
             stylesheets="@style.css">
     
-    <SplitPane dividerPositions="0.4" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <SplitPane dividerPositions="0.45" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <items>
-            <!-- Left Side: Citizen Data -->
+            <!-- Left Side: Citizen Data & AI Insights -->
             <VBox spacing="15" styleClass="data-pane">
-                <Label text="Citizen Verification Data" styleClass="section-title"/>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Citizen Verification Data" styleClass="section-title"/>
+                    <Label text="AI SCANNED" styleClass="badge, badge-success"/>
+                </HBox>
+                
+                <VBox styleClass="ai-summary-card" spacing="5">
+                    <Label text="AI Cross-Reference Confidence" styleClass="ai-card-title"/>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <ProgressBar progress="0.92" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="ai-progress"/>
+                        <Label text="92%" styleClass="ai-percentage"/>
+                    </HBox>
+                    <Label text="Minor spelling variation detected in hospital name." styleClass="ai-card-subtitle"/>
+                </VBox>
                 
                 <GridPane vgap="12" hgap="10">
                     <columnConstraints>
-                        <ColumnConstraints minWidth="100" prefWidth="120" />
-                        <ColumnConstraints hgrow="ALWAYS" />
+                        <ColumnConstraints minWidth="100" prefWidth="110" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="150" />
+                        <ColumnConstraints minWidth="80" halignment="RIGHT" />
                     </columnConstraints>
                     
+                    <!-- Row 0 -->
                     <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="John Doe" fx:id="nameLabel" styleClass="data-value" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label text="100% Match" styleClass="match-score, match-high" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
                     
+                    <!-- Row 1 -->
                     <Label text="National ID:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="1234-5678-9012" fx:id="idLabel" styleClass="data-value" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <Label text="100% Match" styleClass="match-score, match-high" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
                     
+                    <!-- Row 2 -->
                     <Label text="Date of Birth:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="1990-05-15" fx:id="dobLabel" styleClass="data-value" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <Label text="100% Match" styleClass="match-score, match-high" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
                     
+                    <!-- Row 3 -->
                     <Label text="Hospital/Clinic:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="City General Hospital" fx:id="hospitalLabel" styleClass="data-value" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    <Label text="78% Match" styleClass="match-score, match-mid" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
                     
+                    <!-- Row 4 -->
                     <Label text="Document Type:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="Birth Certificate" styleClass="data-value" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                    <Label text="Verified" styleClass="match-score, match-high" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
                 </GridPane>
                 
                 <Separator styleClass="custom-separator"/>
                 
                 <VBox spacing="10" VBox.vgrow="ALWAYS">
                     <Label text="Admin Actions" styleClass="section-title-small"/>
-                    <Button text="Verify &amp; Match" maxWidth="Infinity" styleClass="btn-verify"/>
-                    <Button text="Reject / Flag" maxWidth="Infinity" styleClass="btn-reject"/>
+                    <Button text="Approve &amp; Finalize" maxWidth="Infinity" styleClass="btn-verify"/>
+                    <Button text="Flag for Manual Review" maxWidth="Infinity" styleClass="btn-reject"/>
+                    <Button text="Re-Run AI Scan" maxWidth="Infinity" styleClass="btn-secondary"/>
                 </VBox>
             </VBox>
             
             <!-- Right Side: Document Viewer -->
             <VBox spacing="15" styleClass="doc-pane">
-                <Label text="Uploaded Hospital Document" styleClass="section-title"/>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Uploaded Hospital Document" styleClass="section-title"/>
+                    <Label text="OCR ACTIVE" styleClass="badge, badge-info"/>
+                </HBox>
                 <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="document-scroll">
                     <StackPane styleClass="document-container">
                         <ImageView fx:id="documentImageView" pickOnBounds="true" preserveRatio="true" styleClass="document-image"/>
                         <!-- Fallback label if image fails to load -->
-                        <Label text="Document Preview Area" styleClass="fallback-text"/>
+                        <VBox alignment="CENTER" spacing="10">
+                            <Label text="📄" style="-fx-font-size: 40px;"/>
+                            <Label text="Document Preview Area" styleClass="fallback-text"/>
+                            <Label text="AI is analyzing text in the background..." style="-fx-text-fill: #64748B; -fx-font-size: 12px;"/>
+                        </VBox>
                     </StackPane>
                 </ScrollPane>
             </VBox>
