@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.citizen.dashboard.DashboardController"
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@style.css">
+    
+    <SplitPane dividerPositions="0.4" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <items>
+            <!-- Left Side: Citizen Data -->
+            <VBox spacing="15" styleClass="data-pane">
+                <Label text="Citizen Verification Data" styleClass="section-title"/>
+                
+                <GridPane vgap="12" hgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="100" prefWidth="120" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    
+                    <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
+                    <Label text="John Doe" fx:id="nameLabel" styleClass="data-value" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    
+                    <Label text="National ID:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="field-label"/>
+                    <Label text="1234-5678-9012" fx:id="idLabel" styleClass="data-value" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    
+                    <Label text="Date of Birth:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="field-label"/>
+                    <Label text="1990-05-15" fx:id="dobLabel" styleClass="data-value" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    
+                    <Label text="Hospital/Clinic:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="field-label"/>
+                    <Label text="City General Hospital" fx:id="hospitalLabel" styleClass="data-value" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    
+                    <Label text="Document Type:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="field-label"/>
+                    <Label text="Birth Certificate" styleClass="data-value" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                </GridPane>
+                
+                <Separator styleClass="custom-separator"/>
+                
+                <VBox spacing="10" VBox.vgrow="ALWAYS">
+                    <Label text="Admin Actions" styleClass="section-title-small"/>
+                    <Button text="Verify &amp; Match" maxWidth="Infinity" styleClass="btn-verify"/>
+                    <Button text="Reject / Flag" maxWidth="Infinity" styleClass="btn-reject"/>
+                </VBox>
+            </VBox>
+            
+            <!-- Right Side: Document Viewer -->
+            <VBox spacing="15" styleClass="doc-pane">
+                <Label text="Uploaded Hospital Document" styleClass="section-title"/>
+                <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="document-scroll">
+                    <StackPane styleClass="document-container">
+                        <ImageView fx:id="documentImageView" pickOnBounds="true" preserveRatio="true" styleClass="document-image"/>
+                        <!-- Fallback label if image fails to load -->
+                        <Label text="Document Preview Area" styleClass="fallback-text"/>
+                    </StackPane>
+                </ScrollPane>
+            </VBox>
+        </items>
+    </SplitPane>
+</AnchorPane>
