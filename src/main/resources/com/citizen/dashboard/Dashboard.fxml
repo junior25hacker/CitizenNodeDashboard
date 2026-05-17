@@ -12,7 +12,6 @@
     
     <SplitPane dividerPositions="0.45" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <items>
-            <!-- Left Side: Citizen Data & AI Insights -->
             <VBox spacing="15" styleClass="data-pane">
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <Label text="Citizen Verification Data" styleClass="section-title"/>
@@ -22,9 +21,9 @@
                 <VBox styleClass="ai-summary-card" spacing="5">
                     <Label text="AI Cross-Reference Confidence" styleClass="ai-card-title"/>
                     <HBox alignment="CENTER_LEFT" spacing="10">
-    <ProgressBar fx:id="matchProgressBar" progress="0.0" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="ai-progress"/>
-    <Label fx:id="matchScoreLabel" text="0%" styleClass="ai-percentage"/>
-</HBox>
+                        <ProgressBar fx:id="matchProgressBar" progress="0.0" maxWidth="Infinity" HBox.hgrow="ALWAYS" styleClass="ai-progress"/>
+                        <Label fx:id="matchScoreLabel" text="0%" styleClass="ai-percentage"/>
+                    </HBox>
                     <Label text="Minor spelling variation detected in hospital name." styleClass="ai-card-subtitle"/>
                 </VBox>
                 
@@ -35,27 +34,22 @@
                         <ColumnConstraints minWidth="80" halignment="RIGHT" />
                     </columnConstraints>
                     
-                    <!-- Row 0 -->
                     <Label text="Full Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="John Doe" fx:id="nameLabel" styleClass="data-value" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
                     <Label text="100% Match" styleClass="match-score, match-high" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
                     
-                    <!-- Row 1 -->
                     <Label text="National ID:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="1234-5678-9012" fx:id="idLabel" styleClass="data-value" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                     <Label text="100% Match" styleClass="match-score, match-high" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
                     
-                    <!-- Row 2 -->
                     <Label text="Date of Birth:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="1990-05-15" fx:id="dobLabel" styleClass="data-value" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                     <Label text="100% Match" styleClass="match-score, match-high" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
                     
-                    <!-- Row 3 -->
                     <Label text="Hospital/Clinic:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="City General Hospital" fx:id="hospitalLabel" styleClass="data-value" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
                     <Label text="78% Match" styleClass="match-score, match-mid" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
                     
-                    <!-- Row 4 -->
                     <Label text="Document Type:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="field-label"/>
                     <Label text="Birth Certificate" styleClass="data-value" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
                     <Label text="Verified" styleClass="match-score, match-high" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
@@ -65,13 +59,12 @@
                 
                 <VBox spacing="10" VBox.vgrow="ALWAYS">
                     <Label text="Admin Actions" styleClass="section-title-small"/>
-                    <Button text="Approve &amp; Finalize" maxWidth="Infinity" styleClass="btn-verify"/>
-                    <Button text="Flag for Manual Review" maxWidth="Infinity" styleClass="btn-reject"/>
-                    <Button text="Re-Run AI Scan" maxWidth="Infinity" styleClass="btn-secondary"/>
+                    <Button text="Approve &amp; Finalize" maxWidth="Infinity" styleClass="btn-verify" onAction="#handleVerify"/>
+                    <Button text="Flag for Manual Review" maxWidth="Infinity" styleClass="btn-reject" onAction="#handleReject"/>
+                    <Button text="Re-Run AI Scan" maxWidth="Infinity" styleClass="btn-secondary" onAction="#handleReRunAI"/>
                 </VBox>
             </VBox>
             
-            <!-- Right Side: Document Viewer -->
             <VBox spacing="15" styleClass="doc-pane">
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <Label text="Uploaded Hospital Document" styleClass="section-title"/>
@@ -80,7 +73,6 @@
                 <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" styleClass="document-scroll">
                     <StackPane styleClass="document-container">
                         <ImageView fx:id="documentImageView" pickOnBounds="true" preserveRatio="true" styleClass="document-image"/>
-                        <!-- Fallback label if image fails to load -->
                         <VBox alignment="CENTER" spacing="10">
                             <Label text="📄" style="-fx-font-size: 40px;"/>
                             <Label text="Document Preview Area" styleClass="fallback-text"/>
