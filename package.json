@@ -1,0 +1,11 @@
+{
+  "name": "citizennode-dashboard",
+  "version": "1.0.0",
+  "description": "CitizenNode Dashboard — OOP-based web dashboard built with vanilla HTML, CSS, and JavaScript.",
+  "scripts": {
+    "start": "npx http-server ./ -c-1 -o --port 3000"
+  },
+  "keywords": ["dashboard", "oop", "javascript", "e-governance"],
+  "author": "CitizenNode Team",
+  "license": "MIT"
+}

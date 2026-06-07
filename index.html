@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CitizenNode Dashboard — monitor, manage, and analyse citizen service nodes in real time." />
+  <title>CitizenNode Dashboard</title>
+
+  <!-- Favicon (inline SVG data-URI) -->
+  <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236366f1'/><text y='22' x='6' font-size='18'>🌐</text></svg>" />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+
+<!-- ──────────────────────────────────────────────────────────
+     APP SHELL
+     ──────────────────────────────────────────────────────── -->
+<div class="app-shell">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────── -->
+  <aside class="sidebar" role="navigation" aria-label="Main navigation">
+
+    <!-- Brand -->
+    <div class="sidebar-logo">
+      <div class="logo-mark" aria-hidden="true">🌐</div>
+      <div class="logo-text">
+        <span class="brand-name">CitizenNode</span>
+        <span class="brand-sub">Dashboard v1.0</span>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="sidebar-nav">
+      <span class="nav-section-label">Main</span>
+
+      <a href="#" class="nav-link active" data-section="overview" id="nav-overview"
+         aria-current="page">
+        <span class="nav-icon" aria-hidden="true">📊</span>
+        <span class="nav-label">Overview</span>
+        <span class="live-dot" title="Live data"></span>
+      </a>
+
+      <a href="#" class="nav-link" data-section="nodes" id="nav-nodes">
+        <span class="nav-icon" aria-hidden="true">🗂️</span>
+        <span class="nav-label">Node Directory</span>
+        <span class="nav-badge" id="node-count-badge">24</span>
+      </a>
+
+      <span class="nav-section-label">System</span>
+
+      <a href="#" class="nav-link" data-section="settings" id="nav-settings">
+        <span class="nav-icon" aria-hidden="true">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </a>
+
+      <a href="#" class="nav-link" data-section="about" id="nav-about">
+        <span class="nav-icon" aria-hidden="true">ℹ️</span>
+        <span class="nav-label">About</span>
+      </a>
+    </nav>
+
+    <!-- User -->
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="user-avatar" aria-hidden="true">CA</div>
+        <div class="user-info">
+          <span class="user-name">Admin User</span>
+          <span class="user-role">System Administrator</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ─────────────────────────────────────── -->
+  <div class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar" role="banner">
+      <div class="topbar-left">
+        <div class="topbar-title">Dashboard</div>
+        <div class="breadcrumb" aria-label="Breadcrumb">
+          <span>Home</span> <span>/</span> <span>Overview</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <span id="last-refresh" aria-live="polite" aria-label="Last data refresh time">
+          Last updated: loading...
+        </span>
+        <button class="btn" id="refresh-btn" aria-label="Refresh dashboard data">
+          🔄 Refresh
+        </button>
+        <button class="btn btn-primary" id="theme-toggle"
+                aria-pressed="false" aria-label="Toggle light/dark mode">
+          <span id="theme-icon">☀️</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page -->
+    <main class="page" id="main-page" tabindex="-1">
+
+      <!-- SECTION: Overview -->
+      <section class="section active" id="section-overview" aria-labelledby="overview-heading">
+
+        <div class="section-header">
+          <h1 id="overview-heading">Overview</h1>
+          <p>Real-time snapshot of the CitizenNode network.</p>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="stats-grid" role="list" aria-label="Key metrics">
+          <div id="widget-totalNodes"    role="listitem"></div>
+          <div id="widget-uptime"        role="listitem"></div>
+          <div id="widget-pendingIssues" role="listitem"></div>
+          <div id="widget-resolvedToday" role="listitem"></div>
+        </div>
+
+        <!-- Charts row -->
+        <div class="charts-row">
+          <div id="widget-trafficChart"></div>
+
+          <!-- Static mini breakdown card -->
+          <div class="glass-card widget-card animate-in" style="animation-delay:320ms">
+            <div class="widget-header">
+              <span class="widget-icon">🔢</span>
+              <h3 class="widget-title">Node Status Breakdown</h3>
+            </div>
+            <div class="widget-body">
+              <div class="mini-stats">
+                <div class="mini-stat-row">
+                  <div class="mini-stat-label"><span>Active</span><span>72%</span></div>
+                  <div class="mini-stat-bar">
+                    <div class="mini-stat-fill" style="width:72%;background:#22c55e"></div>
+                  </div>
+                </div>
+                <div class="mini-stat-row">
+                  <div class="mini-stat-label"><span>Idle</span><span>16%</span></div>
+                  <div class="mini-stat-bar">
+                    <div class="mini-stat-fill" style="width:16%;background:#f59e0b"></div>
+                  </div>
+                </div>
+                <div class="mini-stat-row">
+                  <div class="mini-stat-label"><span>Offline</span><span>7%</span></div>
+                  <div class="mini-stat-bar">
+                    <div class="mini-stat-fill" style="width:7%;background:#ef4444"></div>
+                  </div>
+                </div>
+                <div class="mini-stat-row">
+                  <div class="mini-stat-label"><span>Maintenance</span><span>5%</span></div>
+                  <div class="mini-stat-bar">
+                    <div class="mini-stat-fill" style="width:5%;background:#6366f1"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- SECTION: Node Directory -->
+      <section class="section" id="section-nodes" aria-labelledby="nodes-heading">
+        <div class="section-header">
+          <h2 id="nodes-heading">Node Directory</h2>
+          <p>Browse, search, and sort all registered CitizenNodes.</p>
+        </div>
+        <div id="widget-nodeTable"></div>
+      </section>
+
+      <!-- SECTION: Settings -->
+      <section class="section" id="section-settings" aria-labelledby="settings-heading">
+        <div class="section-header">
+          <h2 id="settings-heading">Settings</h2>
+          <p>Configure your CitizenNode Dashboard preferences.</p>
+        </div>
+        <div class="glass-card widget-card animate-in" style="max-width:540px">
+          <div class="widget-header">
+            <span class="widget-icon">🎨</span>
+            <h3 class="widget-title">Appearance</h3>
+          </div>
+          <div class="widget-body" style="display:flex;flex-direction:column;gap:1rem">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <p style="font-weight:600;font-size:var(--fs-sm)">Dark Mode</p>
+                <p style="font-size:var(--fs-xs);color:var(--clr-text-muted)">Toggle between dark and light themes</p>
+              </div>
+              <button class="btn" id="settings-theme-btn" aria-label="Toggle theme">
+                Toggle Theme
+              </button>
+            </div>
+            <hr style="border-color:var(--clr-border)" />
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <p style="font-weight:600;font-size:var(--fs-sm)">Auto Refresh</p>
+                <p style="font-size:var(--fs-xs);color:var(--clr-text-muted)">Refresh data every 30 seconds</p>
+              </div>
+              <span class="status-badge status-active">Enabled</span>
+            </div>
+            <hr style="border-color:var(--clr-border)" />
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <p style="font-weight:600;font-size:var(--fs-sm)">API Endpoint</p>
+                <p style="font-size:var(--fs-xs);color:var(--clr-text-muted)">Currently using mock data</p>
+              </div>
+              <span class="status-badge status-maintenance">Mock</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: About -->
+      <section class="section" id="section-about" aria-labelledby="about-heading">
+        <div class="section-header">
+          <h2 id="about-heading">About CitizenNode</h2>
+          <p>System information and OOP architecture overview.</p>
+        </div>
+        <div class="glass-card widget-card animate-in" style="max-width:700px">
+          <div class="widget-header">
+            <span class="widget-icon">🏗️</span>
+            <h3 class="widget-title">OOP Architecture</h3>
+          </div>
+          <div class="widget-body" style="display:flex;flex-direction:column;gap:var(--space-4)">
+            <p style="color:var(--clr-text-muted);font-size:var(--fs-sm);line-height:1.8">
+              This dashboard was built applying <strong>Object-Oriented Programming</strong>
+              principles — Analysis, Design, and Implementation — using vanilla HTML, CSS, and
+              JavaScript ES6+ classes. No external UI frameworks are required.
+            </p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
+              <div class="glass-card" style="padding:var(--space-4)">
+                <p style="font-weight:var(--fw-bold);margin-bottom:var(--space-2)">🔒 Encapsulation</p>
+                <p style="font-size:var(--fs-xs);color:var(--clr-text-muted)">Private fields (#) hide internal state; public APIs expose only needed behaviour.</p>
+              </div>
+              <div class="glass-card" style="padding:var(--space-4)">
+                <p style="font-weight:var(--fw-bold);margin-bottom:var(--space-2)">🧬 Inheritance</p>
+                <p style="font-size:var(--fs-xs);color:var(--clr-text-muted)">StatWidget, ChartWidget, TableWidget all extend Widget → Component.</p>
+              </div>
+              <div class="glass-card" style="padding:var(--space-4)">
+                <p style="font-weight:var(--fw-bold);margin-bottom:var(--space-2)">🎭 Polymorphism</p>
+                <p style="font-size:var(--fs-xs);color:var(--clr-text-muted)">Each widget overrides buildBody() providing a different visual output via the same interface.</p>
+              </div>
+              <div class="glass-card" style="padding:var(--space-4)">
+                <p style="font-weight:var(--fw-bold);margin-bottom:var(--space-2)">🧩 Abstraction</p>
+                <p style="font-size:var(--fs-xs);color:var(--clr-text-muted)">Component and Widget are abstract; they define contracts without dictating implementation.</p>
+              </div>
+            </div>
+            <p style="font-size:var(--fs-xs);color:var(--clr-text-dim)">
+              Version 1.0 · Built with Outfit (Google Fonts) · Glassmorphism UI · Canvas 2D charts
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- SCRIPTS — load order matters (base classes first) -->
+<script src="js/models/Component.js"></script>
+<script src="js/models/Widget.js"></script>
+<script src="js/models/StatWidget.js"></script>
+<script src="js/models/ChartWidget.js"></script>
+<script src="js/models/TableWidget.js"></script>
+<script src="js/models/DataService.js"></script>
+<script src="js/models/Dashboard.js"></script>
+<script src="js/views/ThemeManager.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
